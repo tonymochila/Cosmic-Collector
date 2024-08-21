@@ -561,6 +561,7 @@ if (dificuldade =='Jupiter'|| nivel==4) {
 
  }
  function sair(){
+  score=0;
   pausa.html('pausa')
   jh=1
   music[5].play();
