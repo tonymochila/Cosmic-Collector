@@ -11,7 +11,7 @@ let passaro=0,passaro1=0
 let pps=0,pps1=0;
 let jh=1
 let numero1=0,numero2=1;
-
+//finalizado
 function preload(){
   soundFormats('mp3');
     musica=["midias/audio/music1.mp3","midias/audio/music2.mp3","midias/audio/credit.mp3","midias/audio/gameover.mp3","midias/audio/mario.mp3","midias/audio/click.mp3","midias/audio/moeda.mp3","midias/audio/erro.mp3"]
