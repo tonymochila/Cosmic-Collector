@@ -9,11 +9,12 @@ let p1=0,p2=0;
 let fruta=5,planeta=15,fase=1,ajuste=0;
 let score=0,play=1
 let passaro=0,passaro1=0
-let video,video1,video2,videos=[];
+let video,videos=[];
 let pps=0,pps1=0;
 let x1 = 0;  // Posição inicial do retângulo
 let speed = 2; // Velocidade do movimento
 let jh=1
+let numero1=0,numero2=1;
 
 function preload(){
   soundFormats('mp3');
@@ -29,6 +30,16 @@ function preload(){
 
 img[0]=loadImage('midias/pernonagem/a (17).gif');
 img[1]=loadImage('midias/pernonagem/a (18).gif');
+img[26]=loadImage('midias/pernonagem/zombie1.gif');
+img[27]=loadImage('midias/pernonagem/zombie2.gif');
+img[28]=loadImage('midias/pernonagem/Hferro2.gif');
+img[29]=loadImage('midias/pernonagem/Hferro1.gif');
+img[30]=loadImage('midias/pernonagem/astronauta1.gif');
+img[31]=loadImage('midias/pernonagem/astronauta2.gif');
+img[32]=loadImage('midias/pernonagem/spadachin2.gif');
+img[33]=loadImage('midias/pernonagem/spadachin1.gif');
+img[34]=loadImage('midias/pernonagem/zombieG1.gif');
+img[35]=loadImage('midias/pernonagem/zombieG2.gif');
 
 img[3]=loadImage('midias/obstaculos/i (5).gif');
 img[21]=loadImage('midias/obstaculos/i (6).gif');
@@ -199,11 +210,12 @@ class terrestre{
 function setup() {
 
   video.loop();
+
   video.hide();
   for(let i=0;i<=5;i++){
     videos[i].hide();
   }
- videos[1].play()
+ //videos[1].play()
   
   rolagem=height-height/100;
   createCanvas(windowWidth, windowHeight); // Cria o canvas com o tamanho da janela
@@ -227,8 +239,10 @@ function setup() {
     mySelect.changed(selecaoAlterada);
     mySelect2.option('Mario');
     mySelect2.option('astronauta');
-    mySelect2.option('Saturno');
-    mySelect2.option('Jupiter');
+    mySelect2.option('zombie');
+    mySelect2.option('Homen de ferro');
+    mySelect2.option('espadachin');
+    mySelect2.option('zombie jogador');
     mySelect2.changed(pessoa);
     mySelect2.hide();mySelect.hide(); volta.hide(); slider.hide();pausa.hide(); //invisivel
 
@@ -276,9 +290,8 @@ function musicas(faixa,pp){
   
 }
 function draw() {
-  background(220);
+  //background(220);
   image(video, 0, 0, width, height);
-  //image(img[21],width/8,(height/1)-height/5,windowWidth/10,windowWidth/10)
   switch(estado){
     
     case 0:
@@ -416,12 +429,12 @@ function jogo(){
       if(mouseX>width/2){
         x+=(velocidade/2)+ajuste;
        // y=height-windowWidth/10
-        image(img[0],x,y,windowWidth/10,windowWidth/10)
+        image(img[numero1],x,y,windowWidth/10,windowWidth/10)
       }
        if(mouseX<width/2){
         x-=(velocidade/2)+ajuste;
        // y=height-windowWidth/10
-        image(img[1],x,y,windowWidth/10,windowWidth/10)
+        image(img[numero2],x,y,windowWidth/10,windowWidth/10)
       }
        if(mouseIsPressed){
       gravidade()
@@ -641,17 +654,30 @@ function bolinha(){
   let personagem = mySelect2.value();
   switch(personagem){
     case 'mario':
-
+numero1=1
+numero2=0
     break;
-    case 'skeitista':
-
+    case 'zombie':
+      numero1=26
+      numero2=27
     break;
     case 'astronauta':
-
+      numero1=30
+      numero2=31
     break;
-    case 'mario pequeno':
-
+    case 'Homen de ferro':
+      numero1=28
+      numero2=29
     break;
+    case 'espadachin':
+      numero1=32
+      numero2=33
+    break;
+    case 'zombie jogador':
+      numero1=34
+      numero2=35
+    break;
+    
   }
      
  }
