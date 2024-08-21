@@ -1,7 +1,6 @@
 let x=200,y=350,vr=1;
-let teste1=0;//variavel de mudança de tela
 let d=0,estado=0;
-let buttons=[],circulos=[],img=[],obstaculo=[],terrestres=[],music=[],musica=[];//arrays
+let buttons=[],circulos=[],img=[],obstaculo=[],terrestres=[],music=[],musica=[],videos=[];//arrays
 let rolagem;//creditos
 let slider,mySelect,slider2,mySelect2;// objetos
 let velocidade=1.67; //gravidade
@@ -9,10 +8,7 @@ let p1=0,p2=0;
 let fruta=5,planeta=15,fase=1,ajuste=0;
 let score=0,play=1
 let passaro=0,passaro1=0
-let video,videos=[];
 let pps=0,pps1=0;
-let x1 = 0;  // Posição inicial do retângulo
-let speed = 2; // Velocidade do movimento
 let jh=1
 let numero1=0,numero2=1;
 
@@ -40,11 +36,10 @@ img[32]=loadImage('midias/pernonagem/spadachin2.gif');
 img[33]=loadImage('midias/pernonagem/spadachin1.gif');
 img[34]=loadImage('midias/pernonagem/zombieG1.gif');
 img[35]=loadImage('midias/pernonagem/zombieG2.gif');
-
+img[36]=loadImage('midias/cenario/terra.jpg');
 img[3]=loadImage('midias/obstaculos/i (5).gif');
 img[21]=loadImage('midias/obstaculos/i (6).gif');
 //img[2]=loadImage('midias/img.gif');
-
 img[5]=loadImage('midias/peças/a (1).png');//incio
 img[6]=loadImage('midias/peças/a (2).png');
 img[7]=loadImage('midias/peças/a (3).png');
@@ -65,15 +60,10 @@ img[22]=loadImage('midias/obstaculos/robo3.gif');
 img[23]=loadImage('midias/obstaculos/robo.gif');
 img[24]=loadImage('midias/obstaculos/img (5).gif');
 img[25]=loadImage('midias/obstaculos/img (9).gif');
-//img[24]=loadImage('midias/video5.mp4');
-//video1=createVideo('midias/video7.mp4');
-video = createVideo('midias/video5.mp4');
+
 videos[0]=createVideo('midias/video7.mp4');
-videos[1]=createVideo('midias/controle.mp4');
+videos[1]=createVideo('midias/video5.mp4');
 videos[2]=createVideo('midias/controle.mp4');
-videos[3]=createVideo('midias/controle.mp4');
-videos[4]=createVideo('midias/controle.mp4');
-videos[5]=createVideo('midias/controle.mp4');
 
 
 }
@@ -208,14 +198,12 @@ class terrestre{
  
 }
 function setup() {
-
-  video.loop();
-  videos[1].hide()
-  video.hide();
-  for(let i=0;i<=5;i++){
-    videos[i].hide();
-  }
- //videos[1].play()
+  videos[1].loop();
+  videos[0].loop()
+  videos[1].hide();
+  videos[0].hide();
+  videos[2].loop()
+  videos[2].hide();
   
   rolagem=height-height/100;
   createCanvas(windowWidth, windowHeight); // Cria o canvas com o tamanho da janela
@@ -290,12 +278,13 @@ function musicas(faixa,pp){
   
 }
 function draw() {
-  //background(220);
-  image(video, 0, 0, width, height);
-  switch(estado){
-    
+  image(videos[1], 0, 0, width, height);
+  textSize(60);
+  fill(255)
+  textAlign(CENTER, TOP);
+  text("Cosmic Collector",0,height/10,width,height)
+  switch(estado){   
     case 0:
-     // mousePressed()
       musicas(0,1)
       for(let n of buttons){
         n.display();
@@ -326,16 +315,11 @@ function draw() {
 }
 function jogo(){
   checar();
- // video.stop();
- //// video.hide()
   function checar() {
-
     for (let i = 0; i < circulos.length; i++) {
       if (circulos[i].isMouseOver(x, y)) {
         console.log("Você acertou!");
         score++
-        //break; // Opcional: para de verificar após encontrar o primeiro círculo
-        // Se quiser remover o círculo ao clicar nele, descomente a linha abaixo:
          circulos.splice(i, 1);
       }
     }
@@ -350,8 +334,6 @@ function jogo(){
   function para(){
     music[5].play();
     if (play === 1) {
-      console.log('Entrou');
-     // buttonState = 1; // Muda o estado para 'saiu'
       pausa.html('Continuar')
       play=0
       text("jogo pausado ", windowWidth/2, windowWidth/2,200,200);
@@ -359,24 +341,20 @@ function jogo(){
     volta.show()
     volta.mousePressed(sair);
     } else {
-      console.log('Saiu');
-     // buttonState = 0; // Muda o estado para 'entrou'
       pausa.html('pausa')
       volta.hide();
       play=1
     }
-
-    ////
   }
   if(play==3){
     vitoria();
   }
   if(score>=0 && play==1){
-    musicas(1,2)
+  musicas(1,2)
   image(img[planeta],0,0,windowWidth, windowHeight)
   text("Score "+score,width/15,height/18);
   movimento();
- bolinha();
+  bolinha();
  
   if(score>=10){
     for (let i = circulos.length - 1; i >= 0; i--) {
@@ -390,9 +368,7 @@ function jogo(){
       
     }
     selecaoAlterada(fase,2)
-
-    score=0
-    
+    score=0  
   }
 }
   else if(score<0){
@@ -458,23 +434,25 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight); // Redimensiona o canvas ao tamanho da janela
 }
 function tutorial(){
-  videos[5].loop()
+  textSize(20);
 estado=2;
 textAlign(CENTER,TOP)
 
-image(videos[5], 0, 0, width, height);
+image(videos[2], 0, 0, width, height);
 text("click em qualquer tecla para sair do tutorial",width/2, height/10)
 if (keyIsPressed){
   sair();
 }
 }
 function config(){
+  fill (50,100,200)
+  image(img[36],0,0,windowWidth, windowHeight)
   estado=3
   mySelect.show()
   mySelect2.show()
   volta.show()
   slider.show();slider2.show()
-  fill(255)
+
   noStroke()
   textSize(width/35)
   text("Ajustar volume:",width/10,height/11);
@@ -496,10 +474,7 @@ function config(){
   volta.mousePressed(sair);
 }
 function creditos(){
-
   estado=4;
-    background(0);
-    videos[0].loop()
     image(videos[0], 0, 0, width, height);
     fill(255);
     noStroke()
@@ -507,7 +482,7 @@ function creditos(){
     textAlign(CENTER, TOP);
     var credits = `
   
-   Fruit Drop
+   Cosmic Collector
   
   Desenvolvido por:
   Antonio Tavares do Nascimento
@@ -525,15 +500,19 @@ function creditos(){
    Visual Studio Code: Editor de código que proporcionou um ambiente de desenvolvimento eficiente e organizado.
    Gráficos e Sons: Recursos próprios e livres de direitos autorais encontrados na internet, garantindo uma experiência visual e auditiva envolvente.
   
-  Inspiração e Objetivo:
-  O "Fruit Drop" foi inspirado pelos clássicos jogos de arcade que combinam simplicidade e diversão. O objetivo principal é proporcionar uma experiência de jogo casual, mas envolvente, onde os jogadores devem capturar frutas que caem do topo da tela utilizando uma cesta controlada pelo mouse. Com o aumento da velocidade das frutas à medida que o jogador progride, o jogo desafia tanto a habilidade quanto os reflexos dos jogadores.
-  
-  Desafios e Aprendizado:
-  Durante o desenvolvimento do "Fruit Drop", diversos desafios foram enfrentados e superados:
-   Implementação de Física e Animações:** Criar uma física de queda realista para as frutas e animações fluidas.
-   Gerenciamento de Recursos de Áudio:** Integração de sons que se adaptam ao estado do jogo, como música de fundo e efeitos sonoros de captura de frutas.
-   Otimização do Desempenho: Garantir que o jogo rodasse de maneira suave em diferentes dispositivos e tamanhos de tela.
-  
+  Cosmic Collector foi inspirado pelos clássicos jogos de arcade que combinam simplicidade e diversão. O objetivo principal é proporcionar uma experiência de jogo casual, mas envolvente, onde os jogadores devem capturar peças cósmicas que caem do topo da tela. À medida que o jogador avança pelos diferentes planetas, a velocidade e o comportamento das peças mudam, desafiando tanto a habilidade quanto os reflexos dos jogadores.
+
+Desafios e Aprendizado:
+
+Durante o desenvolvimento do Cosmic Collector, diversos desafios foram enfrentados e superados:
+
+Implementação de Física e Animações: Criar uma física de queda realista para as peças cósmicas, levando em consideração a gravidade única de cada planeta, e desenvolver animações fluidas que enriquecem a experiência de jogo.
+
+Gerenciamento de Recursos de Áudio: Integração de sons que se adaptam ao estado do jogo, como música de fundo imersiva e efeitos sonoros de captura das peças.
+
+Otimização do Desempenho: Garantir que o jogo rodasse de maneira suave em diferentes dispositivos e tamanhos de tela, mantendo uma experiência de jogo consistente e agradável em qualquer plataforma.
+
+
   Testadores Beta:
    Antonio Tavares do Nascimento
   
@@ -561,7 +540,6 @@ function creditos(){
   }
 
   function selecaoAlterada(nivel) {
-   // alert("oi")
     let dificuldade = mySelect.value();
      if (dificuldade =='Lua'|| nivel==1) {
              velocidade = 1.67;
@@ -583,8 +561,8 @@ if (dificuldade =='Jupiter'|| nivel==4) {
 
  }
  function sair(){
+  pausa.html('pausa')
   jh=1
-  videos[0].stop()
   music[5].play();
   rolagem=width;
       estado=0;
@@ -595,11 +573,8 @@ if (dificuldade =='Jupiter'|| nivel==4) {
   for (let i = circulos.length - 1; i >= 0; i--) {
     circulos.splice(i, 1);
   }
-  //alert(volta.mousePressed())
 }
 function vitoria(){
-
- 
   pausa.hide();
   image(img[19],0,0,windowWidth, windowHeight);
   textAlign(CENTER, TOP);
@@ -657,8 +632,8 @@ function bolinha(){
   let personagem = mySelect2.value();
   switch(personagem){
     case 'mario':
-numero1=1
-numero2=0
+      numero1=1
+      numero2=0
     break;
     case 'zombie':
       numero1=26
@@ -687,7 +662,7 @@ numero2=0
  function abertura(faixa){
   if(jh==faixa && score>=0 && fase<=3){
     background(0)
-    
+    pausa.hide();
     fill(255)
     function imprimir(k1,k2){
       textSize(60);
@@ -721,10 +696,6 @@ numero2=0
         for (let i = circulos.length - 1; i >= 0; i--) {
           circulos.splice(i, 1);
         }
-    }
-    
-  }
-   
-  }
-  
-
+    } 
+  }   
+}
