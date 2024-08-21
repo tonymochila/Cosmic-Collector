@@ -210,7 +210,7 @@ class terrestre{
 function setup() {
 
   video.loop();
-
+  videos[1].hide()
   video.hide();
   for(let i=0;i<=5;i++){
     videos[i].hide();
@@ -387,6 +387,7 @@ function jogo(){
       vitoria();
       fase=1;
       play=3
+      
     }
     selecaoAlterada(fase,2)
 
@@ -395,7 +396,7 @@ function jogo(){
   }
 }
   else if(score<0){
-   
+    jh=1
     fase=1; selecaoAlterada(fase)
     pausa.hide(); volta.hide();
     background(0);
@@ -450,7 +451,7 @@ function jogo(){
         }
     }
   }
- //abertura(fase)
+ abertura(fase)
 
 }
 function windowResized() {
@@ -576,12 +577,13 @@ if (dificuldade =='Saturno'|| nivel==3) {
 }
 if (dificuldade =='Jupiter'|| nivel==4) {
   velocidade = 24.8;
- // velocidade = 4.8;
-             planeta=18
+   planeta=18
+            
 }
 
  }
  function sair(){
+  jh=1
   videos[0].stop()
   music[5].play();
   rolagem=width;
@@ -603,6 +605,7 @@ function vitoria(){
   textAlign(CENTER, TOP);
   text("click em qualquer lugar para sair ",width/2,height/12);
   if(mouseIsPressed==true){
+    jh=1
     sair();
   }
 }
@@ -682,38 +685,46 @@ numero2=0
      
  }
  function abertura(faixa){
- 
-  if(jh==fase){
-    //img[planeta].hide()
-    espera()
-    musicas(0,0)
-    image(videos[fase], 0, 0, width, height)
-    if(faixa==1 ){
-      videos[1].play()
-    }
-    else if(faixa==2 ){
-      videos[2].play()
-    }
-    else if(faixa==3 ){
-     videos[3].play()
-    }
-    else if(faixa==4 ){
-      videos[4].play()
-    }
-  }
-  videos[faixa].onended(videoEnded);
-  function videoEnded() {
-    //musicas(1,2)
-    videos[faixa].stop();
-   // videos[faixa].hide();
+  if(jh==faixa && score>=0 && fase<=3){
+    background(0)
     
-   jh=20
-    console.log(videos[faixa].onended());
-    // Aqui você pode adicionar outras ações que deseja realizar após o vídeo terminar
-  }
-  function espera(){
-    for (let i = circulos.length - 1; i >= 0; i--) {
-      circulos.splice(i, 1);
+    fill(255)
+    function imprimir(k1,k2){
+      textSize(60);
+      textAlign(CENTER,TOP);
+      text(k2,0,0,width,height)
+      textSize(25);
+      textAlign(CENTER,CENTER);
+      text(k1,0,0,width,height)
+      textAlign(CENTER,BOTTOM);
+      textSize(10);
+      text("click em qualquer tecla para avançar",0,0,width,height)
     }
+    switch(faixa){
+      case 1:
+        imprimir("Bem-vindo à Lua, nosso único satélite natural! A gravidade aqui é bem mais fraca do que na Terra, apenas 1/6 da força gravitacional terrestre. Isso significa que tudo por aqui parece pesar menos e flutuar mais. Use isso a seu favor para coletar as peças, mas cuidado, pois a baixa gravidade pode tornar os movimentos mais lentos e difíceis de controlar.","Lua")
+      break;
+      case 2:
+        imprimir("Você chegou à Terra, o lar dos humanos e o terceiro corpo celeste a partir do Sol. Embora a Terra não seja tecnicamente um planeta nesta jornada, sua gravidade é a referência para todos os outros corpos celestes. Aqui, a gravidade é exatamente o que você está acostumado: forte o suficiente para mantê-lo firme no solo, mas ainda assim, permite movimentos ágeis e precisos. Prepare-se para a próxima fase em um ambiente mais desafiador!","Terra")
+      break;
+      case 3:
+        imprimir("Bem-vindo a Saturno, o gigante gasoso famoso por seus impressionantes anéis! Saturno é um planeta enorme, mas sua gravidade é apenas ligeiramente superior à da Terra. Por ser um gigante gasoso, a superfície sólida é inexistente, então aqui, você se moverá em uma atmosfera densa e peculiar, onde a gravidade ainda o puxa para o centro, mas de maneira mais suave. Fique atento às mudanças sutis enquanto coleta as peças!","Saturno")
+      break;
+      case 4:
+        imprimir("Você chegou a Júpiter, o maior planeta do Sistema Solar! A gravidade aqui é esmagadora, mais de duas vezes e meia a força gravitacional da Terra. Cada movimento aqui exige esforço extra, e as peças cairão rapidamente sob a influência dessa poderosa gravidade. Este é o desafio final - prove sua habilidade em um ambiente onde cada segundo conta!","Júpiter")
+      break;
+    }
+    if(keyIsPressed){
+  jh=faixa+1
+    }
+    else{
+        for (let i = circulos.length - 1; i >= 0; i--) {
+          circulos.splice(i, 1);
+        }
+    }
+    
   }
- }
+   
+  }
+  
+
