@@ -437,7 +437,7 @@ function jogo(){
         }
     }
   }
- abertura(fase)
+ //abertura(fase)
 
 }
 function windowResized() {
