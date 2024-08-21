@@ -11,7 +11,15 @@ let passaro=0,passaro1=0
 let pps=0,pps1=0;
 let jh=1
 let numero1=0,numero2=1;
-//finalizado
+/*video youtube
+https://youtu.be/at_8_pEPscY
+codigo do jogo
+https://github.com/tonymochila/Cosmic-Collector
+link do Jogo:
+ https://tonymochila.github.io/Cosmic-Collector/
+ link do projeto no colabeduc
+ http://www.colabeduc.org/projeto/show/1829
+ */
 function preload(){
   soundFormats('mp3');
     musica=["midias/audio/music1.mp3","midias/audio/music2.mp3","midias/audio/credit.mp3","midias/audio/gameover.mp3","midias/audio/mario.mp3","midias/audio/click.mp3","midias/audio/moeda.mp3","midias/audio/erro.mp3"]
@@ -352,7 +360,7 @@ function jogo(){
   if(score>=0 && play==1){
   musicas(1,2)
   image(img[planeta],0,0,windowWidth, windowHeight)
-  text("Score "+score,width/15,height/18);
+  text("Score "+score,width/15,height/11);
   movimento();
   bolinha();
  
@@ -661,7 +669,7 @@ function bolinha(){
      
  }
  function abertura(faixa){
-  if(jh==faixa && score>=0 && fase<=3){
+  if(jh==faixa && score>=0 ){
     background(0)
     pausa.hide();
     fill(255)
